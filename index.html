@@ -1,0 +1,91 @@
+<html>
+
+<head>
+    <title>My Map</title>
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.31.0/mapbox-gl.js'></script>
+    <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.31.0/mapbox-gl.css" rel="stylesheet" />
+    <link href="map.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Cormorant Garamond' rel='stylesheet'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://npmcdn.com/csv2geojson@latest/csv2geojson.js"></script>
+
+
+
+</head>
+
+<body>
+
+    <aside>
+        <div class="sidebar" id="infobar">
+
+
+            <h1>CCUS</h1>
+
+            <div class="tab">
+                <button id="defaultOpen" class="tablinks" onclick="openMenu(event, 'About')">About</button>
+                <button class="tablinks" onclick="openMenu(event, 'Layers')">Layers</button>
+                <button class="tablinks" onclick="openMenu(event, 'Filters')">Filter</button>
+                <button class="tablinks" onclick="openMenu(event, 'Contact')">Contact</button>
+            </div>
+
+            <div id="About" class="tabcontent">
+                <h3>About</h3>
+                <p>Today, new sensor and information technologies allow communities to collect data on local conditions in ways that weren’t possible in the past. Light, noise, pollution, tree cover, and more can be collected and mapped, linked to local residents’ own knowledge and comments, and to other key data that cities use when planning, designing, and investing in neighborhoods. In this collaborative project, are working to collect the most relevant data and integrate it into the information used to make local planning, design, and investment choice.</p>
+                <p>Based on feedback from the community, we are starting with a pilot project measuring the distribution and quality of nighttime light in neighborhoods across Charlottesville. Street lighting has impacts on safety, security, the tree canopy, activity in commercial areas, or even ability to sleep at night. We’re using low-cost computing and sensing device to collect the data and map the light data against other information. Through mapping, we seek to look for patterns and address problems that cannot be achieved in the past.</p>
+            </div>
+
+            <div id="Layers" class="tabcontent">
+                <h3>Layers</h3>
+                <div id="layer-container">
+                </div>
+            </div>
+
+            <div id="Filters" class="tabcontent">
+                <h3>Filters</h3>
+                <p>Filters is comming soon</p>
+            </div>
+            <div id="Contact" class="tabcontent">
+                <h3>Contact Us</h3>
+                <div class="contact-container">
+                    <form action="/action_page.php">
+
+                        <label for="fname">First Name</label>
+                        <input type="text" id="fname" name="firstname" placeholder="Your name..">
+
+                        <label for="lname">Last Name</label>
+                        <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+
+
+
+                        <label for="subject">Subject</label>
+                        <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
+
+                        <input type="submit" value="Submit">
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </aside>
+    <div id="infobar-toggle">
+        <div class='bar'></div>
+        <div class='bar'></div>
+        <div class='bar'></div>
+    </div>
+    <div id="map"></div>
+
+
+
+    <div id='pd'>
+        <p>Hover over a data point or click on a feature to learn more about it.</p>
+    </div>
+
+    <div class='map-overlay' id='legend'></div>
+
+    <div id='screen'></div>
+
+
+</body>
+<script src="map.js"></script>
+
+</html>
