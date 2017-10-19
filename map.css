@@ -157,7 +157,7 @@ div.tab button.active {
 
 #pd {
     position: absolute;
-    bottom: 230px;
+    bottom: 270px;
     right: 20px;
     padding: 10px;
     line-height: 18px;
@@ -329,3 +329,21 @@ input[type=submit]:hover {
     transform: translateX(-585%);
     transition: 0.3s;
 }
+
+.discription{
+    font-size: 0.7em;
+    color: rgb(90,90,90);
+}
+
+.discription a{
+    color: rgb(90,90,90);
+}
+.discription a:hover{
+    color: #fff;
+}
+
+.map-overlay a{
+    color: rgb(200,200,200);
+    }
+
+

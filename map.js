@@ -28,7 +28,7 @@ document.getElementById('defaultOpen').click();
 
 
 //toggle layers
-var toggleableLayerIds = ['Bicycle Lane', 'Bus Stop', 'Sidewalk', 'Crime', 'Crime-icon'];
+var toggleableLayerIds = ['Bicycle Lane', 'Bus Stop', 'Sidewalk', 'Crime', 'Parks', 'Race'];
 
 for (var i = 0; i < toggleableLayerIds.length; i++) {
     var id = toggleableLayerIds[i];
@@ -71,10 +71,10 @@ map.on('load', function () { // the event listener that does some code after the
     var spaces = ['22px', '16px', '10px', '0px'];
     var sizes = ['3px', '9px', '15px', '25px'];
     var discriptions = [
-        'too dark',
-        'dark',
-        'ok',
-        'light',
+        'Completely dark!',
+        'Dark',
+        'Dim Light',
+        'Well-lit',
     ]
 
     // add a legend to the map
@@ -119,6 +119,16 @@ map.on('load', function () { // the event listener that does some code after the
         legend.appendChild(item);
 
     };
+    
+    var learnMoreContainer = document.createElement('div');
+    learnMoreContainer.className='discription';
+    var learnMore = document.createElement('a');
+    learnMore.innerHTML = 'Learn More';
+    learnMore.setAttribute('href','https://en.wikipedia.org/wiki/Lux')
+    
+    learnMoreContainer.appendChild(learnMore);
+    legend.appendChild(learnMoreContainer);
+    
 
 
 
@@ -136,18 +146,15 @@ map.on('load', function () { // the event listener that does some code after the
 
     });
 
-    map.on('mousemove', function (e) { // event listener to do some code when the mouse moves
+    map.on('mousemove', function (e) { 
         var d = map.queryRenderedFeatures(e.point, {
-            layers: ['Crime'],
+            layers: ['Crime' , 'Parks'],
         });
-
         if (d.length > 0) {
             map.getCanvas().style.cursor = 'pointer';
         } else {
             map.getCanvas().style.cursor = '';
         }
-
-
     });
 
     map.on('click', function (e) {
@@ -155,7 +162,6 @@ map.on('load', function () { // the event listener that does some code after the
             layers: ['Crime'] // replace this with the name of the layer
         });
 
-        // if the layer is empty, this if statement will return NULL, exiting the function (no popups created) -- this is a failsafe to avoid endless loops
         if (!crimes.length) {
             return;
         }
@@ -163,7 +169,7 @@ map.on('load', function () { // the event listener that does some code after the
 
         var crime = crimes[0];
 
-        // Initiate the popup
+
         var popup = new mapboxgl.Popup({
             closeButton: true, // If true, a close button will appear in the top right corner of the popup. Default = true
             closeOnClick: true, // If true, the popup will automatically close if the user clicks anywhere on the map. Default = true
@@ -175,15 +181,41 @@ map.on('load', function () { // the event listener that does some code after the
 
         // Set the popup location based on each feature
         popup.setLngLat(crime.geometry.coordinates);
-
-        // Set the contents of the popup window
         popup.setHTML('<h3>Type: ' + crime.properties.Descriptio +
             '</h3><h3>Location: ' + crime.properties.Location +
             '</h3><h3>Time: ' + crime.properties.Date +
             '</h3>');
+        popup.addTo(map); 
+    });
 
-        // Add the popup to the map
-        popup.addTo(map); // replace "map" with the name of the variable in line 28, if different
+
+    map.on('click', function (e) {
+        var parks = map.queryRenderedFeatures(e.point, {
+            layers: ['Parks'] // replace this with the name of the layer
+        });
+
+        if (!parks.length) {
+            return;
+        }
+
+
+        var park = parks[0];
+
+
+        var popup = new mapboxgl.Popup({
+            closeButton: true, 
+            closeOnClick: true, 
+            anchor: 'bottom',
+            offset: [0, -15]
+
+        });
+
+        // Set the popup location based on each feature
+        popup.setLngLat(e.lngLat);
+        popup.setHTML('<h3>Park Name: ' + park.properties.PARKNAME +
+            '</h3><h3>Park Type: ' + park.properties.PARK_TYPE +
+            '</h3>');
+        popup.addTo(map); 
     });
 
 });
