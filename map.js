@@ -56,12 +56,24 @@ for (var i = 0; i < toggleableLayerIds.length; i++) {
         map.setLayoutProperty(this.id, 'visibility',
             e.target.checked ? 'visible' : 'none');
 
+
     });
 
     var layers = document.getElementById('layer-container');
     container.appendChild(inputContainer);
     layers.appendChild(container);
 }
+
+$("#Race").change(function () {
+    if (this.checked) {
+        document.getElementById('demoLegend').style.display = 'block';
+    } else {
+        document.getElementById('demoLegend').style.display = 'none';
+    }
+});
+
+
+document.getElementById('demoLegend').style.display = 'none';
 
 
 
@@ -119,16 +131,16 @@ map.on('load', function () { // the event listener that does some code after the
         legend.appendChild(item);
 
     };
-    
+
     var learnMoreContainer = document.createElement('div');
-    learnMoreContainer.className='discription';
+    learnMoreContainer.className = 'discription';
     var learnMore = document.createElement('a');
     learnMore.innerHTML = 'Learn More';
-    learnMore.setAttribute('href','https://en.wikipedia.org/wiki/Lux')
-    
+    learnMore.setAttribute('href', 'https://en.wikipedia.org/wiki/Lux')
+
     learnMoreContainer.appendChild(learnMore);
     legend.appendChild(learnMoreContainer);
-    
+
 
 
 
@@ -146,9 +158,9 @@ map.on('load', function () { // the event listener that does some code after the
 
     });
 
-    map.on('mousemove', function (e) { 
+    map.on('mousemove', function (e) {
         var d = map.queryRenderedFeatures(e.point, {
-            layers: ['Crime' , 'Parks'],
+            layers: ['Crime', 'Parks'],
         });
         if (d.length > 0) {
             map.getCanvas().style.cursor = 'pointer';
@@ -185,7 +197,7 @@ map.on('load', function () { // the event listener that does some code after the
             '</h3><h3>Location: ' + crime.properties.Location +
             '</h3><h3>Time: ' + crime.properties.Date +
             '</h3>');
-        popup.addTo(map); 
+        popup.addTo(map);
     });
 
 
@@ -203,8 +215,8 @@ map.on('load', function () { // the event listener that does some code after the
 
 
         var popup = new mapboxgl.Popup({
-            closeButton: true, 
-            closeOnClick: true, 
+            closeButton: true,
+            closeOnClick: true,
             anchor: 'bottom',
             offset: [0, -15]
 
@@ -215,7 +227,7 @@ map.on('load', function () { // the event listener that does some code after the
         popup.setHTML('<h3>Park Name: ' + park.properties.PARKNAME +
             '</h3><h3>Park Type: ' + park.properties.PARK_TYPE +
             '</h3>');
-        popup.addTo(map); 
+        popup.addTo(map);
     });
 
 });
